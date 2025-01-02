@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     options { 
@@ -19,14 +20,11 @@ pipeline {
                 archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
                 junit testResults: '**/TEST-*.xml'
             }
-        }
-
-
-        post {
+            post {
                 success {
                     archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
                     junit testResults: '**/TEST-*.xml'
-                    mail subject: 'build stage succeded',
+                    mail subject: 'build stage failed',
                          from: 'bs_devops@yahoo.com',
                          to: 'bs_devops@yahoo.com',
                          body: "Refer to $BUILD_URL for more details"
@@ -38,6 +36,7 @@ pipeline {
                          body: "Refer to $BUILD_URL for more details"
                 }
             }
+        }
     }
     
 }
